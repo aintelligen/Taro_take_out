@@ -4,6 +4,7 @@ import './index.less'
 
 import Head from '../../components/head/head.js'
 import Food from '../../components/food/food.js'
+import Bottom from '../../components/bottom/bottom.js'
 
 
 class Index extends Component {
@@ -33,6 +34,7 @@ class Index extends Component {
       <View className='index'>
         <Head></Head>
         <Food></Food>
+        <Bottom></Bottom>
       </View>
     )
   }

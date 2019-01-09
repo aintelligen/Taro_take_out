@@ -48,3 +48,27 @@ export function setFoodCount(food, num, type, callBack) {
 export function getEvent() {
   return myEvent;
 }
+
+export function getAllFoodInfo() {
+  let allPrice = 0;//总价格
+  let allNum = 0;
+  let store = Taro.getStorageSync(foodKey);//取菜品信息
+  if (store) {
+    //对store进行遍历
+    Object.keys(store).map((key) => {
+      if (store[key]) {
+        if (store[key].price) {
+          allPrice += store[key].price * store[key].num;
+          allNum += store[key].num;
+        }
+      }
+    })
+  }
+  if (isNaN(allPrice)) {
+    allPrice = 0;
+  }
+  if (isNaN(allNum)) {
+    allNum = 0;
+  }
+  return { allPrice, allNum }
+}

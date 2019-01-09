@@ -1,7 +1,7 @@
 import Taro, { Component } from '@tarojs/taro';
 import { View, Text, Image } from '@tarojs/components';
+import AddCut from '../addcut/addcut';
 import './foodlist.less';
-import AddCut from '../addcut/addcut'
 class FoodList extends Component {
   constructor() {
     super(...arguments);
@@ -9,7 +9,6 @@ class FoodList extends Component {
   }
   render() {
     let { selectCata, currentList } = this.props;
-    console.log(currentList)
     return (<View className="foodlist">
       <Text>{selectCata ? selectCata.name : ""}</Text>
       <View className="foodlist_forlist">
@@ -21,7 +20,7 @@ class FoodList extends Component {
                 <Text>{item.title}</Text>
                 <Text>月售:{item.sole}</Text>
                 <Text className="price">¥{item.price}</Text>
-                <AddCut food={item}></AddCut>
+                <AddCut food={item} />
               </View>
             </View>)
           })
@@ -33,4 +32,5 @@ class FoodList extends Component {
 FoodList.defaultProps = {
   currentList: []
 }
+
 export default FoodList;

@@ -1,25 +1,24 @@
 import Taro, { Component } from '@tarojs/taro';
-import { View, Text } from '@tarojs/components';
+import { View, Text, Image } from '@tarojs/components';
 import { AtTabs, AtTabsPane } from 'taro-ui'
-import Cata from './cata'
-import FoodList from './foodlist'
+import Cata from './cata';
+import FoodList from './foodlist';
 import './food.less';
 class Food extends Component {
   constructor() {
-    super(...arguments)
+    super(...arguments);
     this.state = {
-      selectCata: null,
       current: 0,
+      tabList: [{ title: "点菜" }, { title: "评价" }, { title: "商家" }],
       foodlist: [],
       currentList: [],
-      tabList: [{ title: '点餐' }, { title: '评价' }, { title: '商家' }]
-    }
+      selectCata: null
+    };
   }
-  handleClick(value) {
-    this.setState({
-      current: value
-    })
+  changeTab(value) {
+    this.setState({ current: value })
   }
+  //切换分类
   changeCata(selectCata) {
     this.setState({ selectCata: selectCata });
     if (this.state.foodlist.some(item => item.pid == selectCata.id)) {
@@ -38,20 +37,17 @@ class Food extends Component {
   }
   render() {
     let { current, tabList, currentList, selectCata } = this.state;
-    return (
-      <View className="">
-        <AtTabs current={current} tabList={tabList} onClick={this.handleClick.bind(this)}>
-          <AtTabsPane>
-            <View className="food_body">
-              <Cata onChangeCata={this.changeCata.bind(this)}></Cata>
-              <FoodList selectCata={selectCata} currentList={currentList}></FoodList>
-            </View>
-          </AtTabsPane>
-          <AtTabsPane>评价</AtTabsPane>
-          <AtTabsPane>商家</AtTabsPane>
-        </AtTabs>
-      </View>
-    )
+    return (<View>
+      <AtTabs current={current} onClick={this.changeTab.bind(this)} tabList={tabList}>
+        <AtTabsPane>
+          <View className="food_body">
+            <Cata onChangeCata={this.changeCata.bind(this)} /><FoodList style="width:100%" selectCata={selectCata} currentList={currentList} />
+          </View>
+        </AtTabsPane>
+        <AtTabsPane>评价</AtTabsPane>
+        <AtTabsPane>商家</AtTabsPane>
+      </AtTabs>
+    </View>)
   }
 }
 export default Food;
